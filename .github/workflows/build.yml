@@ -51,10 +51,11 @@ jobs:
           gh release view latest >/dev/null 2>&1 || gh release create latest --title "Latest build" --notes "Automatic build of the newest commit." --prerelease
           gh release upload latest VibeVault.apk --clobber
       - uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: VibeVault-apk
           path: VibeVault.apk
-          retention-days: 7
+          retention-days: 1
       - name: Remove key material
         if: always()
         run: rm -f "$RUNNER_TEMP/release.keystore"
